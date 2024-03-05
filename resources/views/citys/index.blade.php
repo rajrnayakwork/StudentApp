@@ -13,12 +13,12 @@
     @include('Components.nevbar')
     <div class="main pt-5">
         <div class="d-flex justify-content-center">
-            <a href="{{ route('students.create') }}"><button type="button" class="btn btn-outline-dark">Add
-                    Student</button></a>
+            <a href="{{ route('citys.create') }}"><button type="button" class="btn btn-outline-dark">Add
+                    City</button></a>
         </div>
         <br>
         <div class="d-flex justify-content-center">
-            <h4>Students</h4>
+            <h4>City</h4>
         </div>
         <br>
         <div class="d-flex justify-content-center">
@@ -26,39 +26,19 @@
                 <thead class="table-info">
                     <tr>
                         <th scope="col">Sr.No</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">Age</th>
-                        <th scope="col">Gender</th>
-                        <th scope="col">Birth Place</th>
+                        <th scope="col">City Name</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                    @foreach ($students as $index => $student)
+                    @foreach ($citys as $index => $city)
                         <tr>
                             <th scope="row">{{ $index + 1 }}</th>
-                            <td>{{ $student->firstname }}</td>
-                            <td>{{ $student->lastname }}</td>
-                            <td>{{ $student->age }}</td>
-                            @switch($student->gender)
-                                @case(1)
-                                    <td>Male</td>
-                                @break
-
-                                @case(2)
-                                    <td>Female</td>
-                                @break
-
-                                @case(3)
-                                    <td>Other</td>
-                                @break
-                            @endswitch
-                            <td>{{ $student->city->name }}</td>
+                            <td>{{ $city->name }}</td>
                             <td>
-                                <a href="{{-- route('edit_student', [$student->id]) --}}"><button type="button"
+                                <a href="{{ route('citys.edit', [$city->id]) }}"><button type="button"
                                         class="btn btn-outline-success">Edit</button></a>
-                                <a href="{{-- route('delete_student', [$student->id]) --}}"><button type="button"
+                                <a href="{{ route('citys.destroy', [$city->id]) }}"><button type="button"
                                         class="btn btn-outline-danger">Delete</button></a>
                             </td>
                         </tr>
