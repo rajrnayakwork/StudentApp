@@ -10,8 +10,9 @@ use App\Models\StudentSubject;
 class StudentController extends Controller
 {
     public function index(){
-        $students = Student::with('city')->get();
-        return view('students.index')->with(['students' => $students]);
+        $students = Student::with(['city','subjects'])->get();
+        $subjects = Subject::all();
+        return view('students.index')->with(['students' => $students,'subjects' => $subjects]);
     }
 
     public function create(){
@@ -38,6 +39,28 @@ class StudentController extends Controller
                 $subject->subject_id = $value;
                 $subject->save();
             }
+            return redirect()->route('students.index');
+        }
+    }
+
+    public function edit($student){
+        $student = Student::find($student);
+        $citys = City::all();
+        return view('students.edit')->with(['student' => $student,'citys' => $citys]);
+    }
+
+    public function update(Request $request){
+        $error = $this->validation($request);
+        if ($error != null) {
+            return redirect()->back()->withErrors($error)->withInput();
+        } else {
+            $student = Student::find($request->id);
+            $student->firstname = $request->first_name;
+            $student->lastname = $request->last_name;
+            $student->age = $request->age;
+            $student->gender = $request->gender;
+            $student->city_id = $request->city;
+            $student->save();
             return redirect()->route('students.index');
         }
     }
@@ -71,9 +94,9 @@ class StudentController extends Controller
         if(!$gender){
             $error += ['gender' => "Fill the Gender please.."];
         }
-        if(!$subjects){
-            $error += ['subject' => "Fill the subject please.."];
-        }
+        // if(!$subjects){
+        //     $error += ['subject' => "Fill the subject please.."];
+        // }
         if(!$city){
             $error += ['city' => "Fill the City please.."];
         }

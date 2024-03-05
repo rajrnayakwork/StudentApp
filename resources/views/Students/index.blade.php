@@ -30,6 +30,7 @@
                         <th scope="col">Last Name</th>
                         <th scope="col">Age</th>
                         <th scope="col">Gender</th>
+                        <th scope="col">Subjects</th>
                         <th scope="col">Birth Place</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -54,9 +55,18 @@
                                     <td>Other</td>
                                 @break
                             @endswitch
+                            <td> {{ '|' }}
+                                @foreach ($student->subjects as $subject)
+                                    @foreach ($subjects as $value)
+                                        @if ($subject->subject_id == $value->id)
+                                            {{ $value->name . ' | ' }}
+                                        @endif
+                                    @endforeach
+                                @endforeach
+                            </td>
                             <td>{{ $student->city->name }}</td>
                             <td>
-                                <a href="{{-- route('edit_student', [$student->id]) --}}"><button type="button"
+                                <a href="{{ route('students.edit', [$student->id]) }}"><button type="button"
                                         class="btn btn-outline-success">Edit</button></a>
                                 <a href="{{-- route('delete_student', [$student->id]) --}}"><button type="button"
                                         class="btn btn-outline-danger">Delete</button></a>
