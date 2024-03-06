@@ -69,13 +69,16 @@
                             </div>
                         @enderror
                     </div>
-                    {{-- <div class="mb-3 col-5">
+                    <div class="mb-3 col-5">
                         <label for="subject" class="form-label">Subject</label><br>
                         <div class="row">
                             @foreach ($subjects as $subject)
                                 <div class="form-check col-3">
                                     <input class="form-check-input" name="subject[]" type="checkbox"
-                                        value="{{ $subject->id }}" id="{{ $subject->name }}">
+                                        value="{{ $subject->id }}" id="{{ $subject->name }}"
+                                        @foreach ($student->subjects as $value) @if ($value->id == $subject->id)
+                                            checked
+                                        @endif @endforeach>
                                     <label class="form-check-label"
                                         for="{{ $subject->name }}">{{ $subject->name }}</label>
                                 </div>
@@ -86,7 +89,7 @@
                                 {{ $message }}
                             </div>
                         @enderror
-                    </div> --}}
+                    </div>
                     <div class="mb-3">
                         <label for="last_name" class="form-label">Birth Place</label><br>
                         <select class="form-select" style="width: 20%" name="city">

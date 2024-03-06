@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\CityController;
+use Illuminate\Support\Facades\Redirect;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,22 +22,23 @@ Route::get('/', function () {
     return Redirect::route('students.index');
 });
 
-Route::get('/students',[StudentController::Class,'index'])->name('students.index');
-Route::get('/students/create',[StudentController::Class,'create'])->name('students.create');
-Route::post('/students',[StudentController::Class,'store'])->name('students.store');
-Route::get('/students/{student}/edit',[StudentController::Class,'edit'])->name('students.edit');
-Route::post('/students/update',[StudentController::Class,'update'])->name('students.update');
+Route::get('/students',[StudentController::class,'index'])->name('students.index');
+Route::get('/students/create',[StudentController::class,'create'])->name('students.create');
+Route::post('/students',[StudentController::class,'store'])->name('students.store');
+Route::get('/students/{student}/edit',[StudentController::class,'edit'])->name('students.edit');
+Route::post('/students/update',[StudentController::class,'update'])->name('students.update');
+Route::get('/students/{student}',[StudentController::class,'destroy'])->name('students.destroy');
 
-Route::get('/subjects',[SubjectController::Class,'index'])->name('subjects.index');
-Route::get('/subjects/create',[SubjectController::Class,'create'])->name('subjects.create');
-Route::post('/subjects',[SubjectController::Class,'store'])->name('subjects.store');
-Route::get('/subjects/{subject}/edit',[SubjectController::Class,'edit'])->name('subjects.edit');
-Route::post('/subjects/update',[SubjectController::Class,'update'])->name('subjects.update');
-Route::get('/subjects/{subject}',[SubjectController::Class,'destroy'])->name('subjects.destroy');
+Route::get('/subjects',[SubjectController::class,'index'])->name('subjects.index');
+Route::get('/subjects/create',[SubjectController::class,'create'])->name('subjects.create');
+Route::post('/subjects',[SubjectController::class,'store'])->name('subjects.store');
+Route::get('/subjects/{subject}/edit',[SubjectController::class,'edit'])->name('subjects.edit');
+Route::post('/subjects/update',[SubjectController::class,'update'])->name('subjects.update');
+Route::get('/subjects/{subject}',[SubjectController::class,'destroy'])->name('subjects.destroy');
 
-Route::get('/citys',[CityController::Class,'index'])->name('citys.index');
-Route::get('/citys/create',[CityController::Class,'create'])->name('citys.create');
-Route::post('/citys',[CityController::Class,'store'])->name('citys.store');
-Route::get('/citys/{city}/edit',[CityController::Class,'edit'])->name('citys.edit');
-Route::post('/citys/update',[CityController::Class,'update'])->name('citys.update');
-Route::get('/citys/{city}',[CityController::Class,'destroy'])->name('citys.destroy');
+Route::get('/citys',[CityController::class,'index'])->name('citys.index');
+Route::get('/citys/create',[CityController::class,'create'])->name('citys.create');
+Route::post('/citys',[CityController::class,'store'])->name('citys.store');
+Route::get('/citys/{city}/edit',[CityController::class,'edit'])->name('citys.edit');
+Route::post('/citys/update',[CityController::class,'update'])->name('citys.update');
+Route::get('/citys/{city}',[CityController::class,'destroy'])->name('citys.destroy');

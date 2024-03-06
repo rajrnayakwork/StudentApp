@@ -57,18 +57,14 @@
                             @endswitch
                             <td> {{ '|' }}
                                 @foreach ($student->subjects as $subject)
-                                    @foreach ($subjects as $value)
-                                        @if ($subject->subject_id == $value->id)
-                                            {{ $value->name . ' | ' }}
-                                        @endif
-                                    @endforeach
+                                    {{ $subject->name . ' | ' }}
                                 @endforeach
                             </td>
                             <td>{{ $student->city->name }}</td>
                             <td>
                                 <a href="{{ route('students.edit', [$student->id]) }}"><button type="button"
                                         class="btn btn-outline-success">Edit</button></a>
-                                <a href="{{-- route('delete_student', [$student->id]) --}}"><button type="button"
+                                <a href="{{ route('students.destroy', [$student->id]) }}"><button type="button"
                                         class="btn btn-outline-danger">Delete</button></a>
                             </td>
                         </tr>

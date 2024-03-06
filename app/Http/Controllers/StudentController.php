@@ -11,8 +11,8 @@ class StudentController extends Controller
 {
     public function index(){
         $students = Student::with(['city','subjects'])->get();
-        $subjects = Subject::all();
-        return view('students.index')->with(['students' => $students,'subjects' => $subjects]);
+        // dd($students[0]->toArray());
+        return view('students.index')->with(['students' => $students]);
     }
 
     public function create(){
@@ -33,23 +33,20 @@ class StudentController extends Controller
             $student->gender = $request->gender;
             $student->city_id = $request->city;
             $student->save();
-            foreach ($request->subject as $value) {
-                $subject = new StudentSubject;
-                $subject->student_id = $student->id;
-                $subject->subject_id = $value;
-                $subject->save();
-            }
+            $student->subjects()->attach($request->subject);
             return redirect()->route('students.index');
         }
     }
 
     public function edit($student){
-        $student = Student::find($student);
+        $student = Student::with('subjects')->find($student);
         $citys = City::all();
-        return view('students.edit')->with(['student' => $student,'citys' => $citys]);
+        $subjects = Subject::all();
+        return view('students.edit')->with(['student' => $student,'citys' => $citys,'subjects' => $subjects]);
     }
 
     public function update(Request $request){
+        // dd($request->toArray());
         $error = $this->validation($request);
         if ($error != null) {
             return redirect()->back()->withErrors($error)->withInput();
@@ -61,8 +58,16 @@ class StudentController extends Controller
             $student->gender = $request->gender;
             $student->city_id = $request->city;
             $student->save();
+            $student->subjects()->sync($request->subject);
             return redirect()->route('students.index');
         }
+    }
+
+    public function destroy($student){
+        $student = Student::find($student);
+        $student->subjects()->detach();
+        $student->delete();
+        return redirect()->route('students.index');
     }
 
     public function validation($request){
@@ -94,9 +99,9 @@ class StudentController extends Controller
         if(!$gender){
             $error += ['gender' => "Fill the Gender please.."];
         }
-        // if(!$subjects){
-        //     $error += ['subject' => "Fill the subject please.."];
-        // }
+        if(!$subjects){
+            $error += ['subject' => "Fill the subject please.."];
+        }
         if(!$city){
             $error += ['city' => "Fill the City please.."];
         }
