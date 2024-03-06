@@ -16,8 +16,8 @@
         <input type="hidden" name="id" value="{{ $city->id }}">
         @csrf
         <div class="d-flex justify-content-center">
-            <div class="card w-50 bg-info-subtle text-info-emphasis">
-                <div class="card-header">
+            <div class="card w-50">
+                <div class="card-header bg-info-subtle text-info-emphasis">
                     <h2>Edit City Form</h2>
                 </div>
                 <div class="card-body">

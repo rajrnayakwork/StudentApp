@@ -6,13 +6,17 @@ use Illuminate\Http\Request;
 use App\Models\Subject;
 use App\Models\City;
 use App\Models\Student;
-use App\Models\StudentSubject;
+use Illuminate\Support\Facades\Auth;
+
 class StudentController extends Controller
 {
     public function index(){
-        $students = Student::with(['city','subjects'])->get();
-        // dd($students[0]->toArray());
-        return view('students.index')->with(['students' => $students]);
+        if(Auth::check())
+        {
+            $students = Student::with(['city','subjects'])->get();
+            return view('students.index')->with(['students' => $students]);
+        }
+        return redirect()->route('login')->withErrors(['email' => 'Please login to access the dashboard.'])->onlyInput('email');
     }
 
     public function create(){
@@ -46,7 +50,6 @@ class StudentController extends Controller
     }
 
     public function update(Request $request){
-        // dd($request->toArray());
         $error = $this->validation($request);
         if ($error != null) {
             return redirect()->back()->withErrors($error)->withInput();

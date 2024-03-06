@@ -12,15 +12,13 @@
 <body>
     @include('Components.nevbar')
     <div class="main pt-5">
-        <div class="d-flex justify-content-center">
-            <a href="{{ route('subjects.create') }}"><button type="button" class="btn btn-outline-dark">Add
-                    Subject</button></a>
+        <div class="d-flex justify-content-center pb-1">
+            <div class="header d-flex justify-content-between w-50">
+                <h4>Subject</h4>
+                <a href="{{ route('subjects.create') }}"><button type="button" class="btn btn-outline-dark">Add
+                        Subject</button></a>
+            </div>
         </div>
-        <br>
-        <div class="d-flex justify-content-center">
-            <h4>Subject</h4>
-        </div>
-        <br>
         <div class="d-flex justify-content-center">
             <table class="table w-50">
                 <thead class="table-info">

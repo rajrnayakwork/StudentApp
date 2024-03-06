@@ -11,16 +11,19 @@
 
 <body>
     @include('Components.nevbar')
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            {{ $message }}
+        </div>
+    @endif
     <div class="main pt-5">
-        <div class="d-flex justify-content-center">
-            <a href="{{ route('students.create') }}"><button type="button" class="btn btn-outline-dark">Add
-                    Student</button></a>
+        <div class="d-flex justify-content-center pb-1">
+            <div class="header d-flex justify-content-between w-50">
+                <h4>Students</h4>
+                <a href="{{ route('students.create') }}"><button type="button" class="btn btn-outline-dark">Add
+                        Student</button></a>
+            </div>
         </div>
-        <br>
-        <div class="d-flex justify-content-center">
-            <h4>Students</h4>
-        </div>
-        <br>
         <div class="d-flex justify-content-center">
             <table class="table w-50">
                 <thead class="table-info">
