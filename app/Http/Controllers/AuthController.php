@@ -9,10 +9,16 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     public function login(){
+        if (Auth::check()) {
+            return redirect()->back();
+        }
         return view('login');
     }
 
     public function registration(){
+        if (Auth::check()) {
+            return redirect()->back();
+        }
         return view('registration');
     }
 
@@ -32,7 +38,11 @@ class AuthController extends Controller
         $credentials = $request->only('user_name','password');
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/students')->withSuccess('You have Successfully loggedin');
+            if ($user->role_type == 2) {
+                return redirect()->route('user.index',[Auth::user()->student_id])->withSuccess('You have Successfully loggedin');
+            }else{
+                return redirect()->route('students.index')->withSuccess('You have Successfully loggedin');
+            }
         }
     }
 
@@ -43,11 +53,10 @@ class AuthController extends Controller
         ]);
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            $role = Auth::user()->role_type;
-            if ($role == 2) {
-                return redirect()->route('students.index')->withSuccess('You have Successfully loggedin');
+            if (Auth::user()->role_type == 2) {
+                return redirect()->route('user.index',[Auth::user()->student_id])->withSuccess('You have Successfully loggedin');
             }else{
-                return redirect()->route('subjects.index')->withSuccess('You have Successfully loggedin');
+                return redirect()->route('students.index')->withSuccess('You have Successfully loggedin');
             }
         }else {
             return redirect()->back()->withErrors(['email' => 'These credentials do not match our records.']);
@@ -55,9 +64,12 @@ class AuthController extends Controller
     }
 
     public function logout(){
-        Auth::logout();
-        Session()->flush();
-        Session()->regenerate();
-        return redirect()->route('login');
+        if (Auth::check()) {
+            Auth::logout();
+            Session()->flush();
+            Session()->regenerate();
+            return redirect()->route('login');
+        }
+        return redirect()->back();
     }
 }

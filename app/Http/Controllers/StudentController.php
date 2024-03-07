@@ -105,41 +105,11 @@ class StudentController extends Controller
         return redirect()->route('students.index');
     }
 
-    public function validation($request){
-        $error = [];
-        $first_name = $request->first_name;
-        $last_name = $request->last_name;
-        $age = $request->age;
-        $gender = $request->gender;
-        $city = $request->city;
-        $subjects = $request->subject;
-
-        if($first_name){
-            if (!preg_match("/^[a-zA-Z-' ]*$/",$first_name)) {
-                $error += ['first_name' => "Only letters and white space allowed.."];
-                }
-        }else{
-            $error += ['first_name' => "Fill the First Name please.."];
+    public function userIndex($student = null){
+        if (Auth::user()->student_id == $student) {
+            $user = Student::find($student);
+            return view('user.index')->with(['user' => $user]);
         }
-        if($last_name){
-            if (!preg_match("/^[a-zA-Z-' ]*$/",$last_name)) {
-                $error += ['last_name' => "Only letters and white space allowed.."];
-                }
-        }else{
-            $error += ['last_name' => "Fill the Last Name please.."];
-        }
-        if(!$age){
-            $error += ['age' => "Fill the Age please.."];
-        }
-        if(!$gender){
-            $error += ['gender' => "Fill the Gender please.."];
-        }
-        if(!$subjects){
-            $error += ['subject' => "Fill the subject please.."];
-        }
-        if(!$city){
-            $error += ['city' => "Fill the City please.."];
-        }
-        return $error;
+        return redirect()->back();
     }
 }

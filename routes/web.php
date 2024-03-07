@@ -30,7 +30,7 @@ Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 
 Route::post('/logout',[AuthController::class,'loginPost'])->name('login.post');
 
-Route::middleware(['role:2'])->group(function () {
+Route::middleware(['role:1'])->group(function () {
     Route::get('/students',[StudentController::class,'index'])->name('students.index');
     Route::get('/students/create',[StudentController::class,'create'])->name('students.create');
     Route::post('/students',[StudentController::class,'store'])->name('students.store');
@@ -55,4 +55,8 @@ Route::middleware(['role:1'])->group(function () {
     Route::get('/citys/{city}/edit',[CityController::class,'edit'])->name('citys.edit');
     Route::post('/citys/update',[CityController::class,'update'])->name('citys.update');
     Route::get('/citys/{city}',[CityController::class,'destroy'])->name('citys.destroy');
+});
+
+Route::middleware(['role:2'])->group(function () {
+    Route::get('/user/{student?}',[StudentController::class,'userIndex'])->name('user.index');
 });
