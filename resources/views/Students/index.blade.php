@@ -42,8 +42,8 @@
                     @foreach ($students as $index => $student)
                         <tr>
                             <th scope="row">{{ $index + 1 }}</th>
-                            <td>{{ $student->firstname }}</td>
-                            <td>{{ $student->lastname }}</td>
+                            <td>{{ $student->first_name }}</td>
+                            <td>{{ $student->last_name }}</td>
                             <td>{{ $student->age }}</td>
                             @switch($student->gender)
                                 @case(1)

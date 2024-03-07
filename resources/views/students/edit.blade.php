@@ -20,37 +20,31 @@
                     <h2>Edit Student Form</h2>
                 </div>
                 <div class="card-body row">
-                    <div class="mb-3 col-6">
+                    <div class="mb-3 col-4">
                         <label for="first_name" class="form-label">First Name</label>
                         <input type="text" class="form-control" id="first_name" name="first_name"
-                            value="{{ $student->firstname }}">
+                            value="{{ $student->first_name }}">
                         @error('first_name')
-                            <div class="p-3 text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-3">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="mb-3 col-6">
-                        <label for="last_name" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="last_name" name="last_name"
-                            value="{{ $student->lastname }}">
-                        @error('last_name')
-                            <div class="p-3 text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-3">
-                                {{ $message }}
-                            </div>
+                            <div class="text-danger"> {{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3 col-4">
+                        <label for="last_name" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="last_name" name="last_name"
+                            value="{{ $student->last_name }}">
+                        @error('last_name')
+                            <div class="text-danger"> {{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3 col-6">
                         <label for="age" class="form-label">Age</label>
                         <input type="number" class="form-control" id="age" name="age"
                             value="{{ $student->age }}">
                         @error('age')
-                            <div class="p-3 text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-3">
-                                {{ $message }}
-                            </div>
+                            <div class="text-danger"> {{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="mb-3 col-3">
+                    <div class="mb-3 col-6">
                         <label for="gender" class="form-label">Gender</label><br>
                         <input type="radio" class="btn-check" name="gender" id="male" value="1"
                             autocomplete="off" @if ($student->gender == 1) checked @endif>
@@ -64,30 +58,7 @@
                             autocomplete="off" @if ($student->gender == 3) checked @endif>
                         <label class="btn" for="other">Other</label>
                         @error('gender')
-                            <div class="p-3 text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-3">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="mb-3 col-5">
-                        <label for="subject" class="form-label">Subject</label><br>
-                        <div class="row">
-                            @foreach ($subjects as $subject)
-                                <div class="form-check col-3">
-                                    <input class="form-check-input" name="subject[]" type="checkbox"
-                                        value="{{ $subject->id }}" id="{{ $subject->name }}"
-                                        @foreach ($student->subjects as $value) @if ($value->id == $subject->id)
-                                            checked
-                                        @endif @endforeach>
-                                    <label class="form-check-label"
-                                        for="{{ $subject->name }}">{{ $subject->name }}</label>
-                                </div>
-                            @endforeach
-                        </div>
-                        @error('subject')
-                            <div class="p-3 text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-3">
-                                {{ $message }}
-                            </div>
+                            <div class="text-danger"> {{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
@@ -100,9 +71,26 @@
                             @endforeach
                         </select>
                         @error('city')
-                            <div class="p-3 text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-3">
-                                {{ $message }}
-                            </div>
+                            <div class="text-danger"> {{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="subject" class="form-label">Subject</label><br>
+                        <div class="row">
+                            @foreach ($subjects as $subject)
+                                <div class="form-check">
+                                    <input class="form-check-input" name="subject[]" type="checkbox"
+                                        value="{{ $subject->id }}" id="{{ $subject->name }}"
+                                        @foreach ($student->subjects as $value) @if ($value->id == $subject->id)
+                                            checked
+                                        @endif @endforeach>
+                                    <label class="form-check-label"
+                                        for="{{ $subject->name }}">{{ $subject->name }}</label>
+                                </div>
+                            @endforeach
+                        </div>
+                        @error('subject')
+                            <div class="text-danger"> {{ $message }}</div>
                         @enderror
                     </div>
                     <div class="col-1">

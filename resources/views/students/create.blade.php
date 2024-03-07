@@ -14,6 +14,7 @@
 <body class="text-info-emphasis">
     <form class="pt-5" method="POST" action="{{ route('students.store') }}">
         @csrf
+        <input type="hidden" class="form-control" name="role_type" value="2">
         <div class="d-flex justify-content-center">
             <div class="card w-50">
                 <div class="card-header bg-info-subtle text-info-emphasis">
@@ -21,13 +22,27 @@
                 </div>
                 <div class="card-body row">
                     <div class="mb-3 col-6">
+                        <label for="user_name" class="form-label">User Name</label>
+                        <input type="text" class="form-control" id="user_name" name="user_name"
+                            value="{{ old('user_name') }}">
+                        @error('user_name')
+                            <div class="text-danger"> {{ $message }} </div>
+                        @enderror
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password"
+                            value="{{ old('password') }}">
+                        @error('password')
+                            <div class="text-danger"> {{ $message }} </div>
+                        @enderror
+                    </div>
+                    <div class="mb-3 col-6">
                         <label for="first_name" class="form-label">First Name</label>
                         <input type="text" class="form-control" id="first_name" name="first_name"
                             value="{{ old('first_name') }}">
                         @error('first_name')
-                            <div class="p-3 text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-3">
-                                {{ $message }}
-                            </div>
+                            <div class="text-danger"> {{ $message }} </div>
                         @enderror
                     </div>
                     <div class="mb-3 col-6">
@@ -35,22 +50,18 @@
                         <input type="text" class="form-control" id="last_name" name="last_name"
                             value="{{ old('last_name') }}">
                         @error('last_name')
-                            <div class="p-3 text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-3">
-                                {{ $message }}
-                            </div>
+                            <div class="text-danger"> {{ $message }} </div>
                         @enderror
                     </div>
-                    <div class="mb-3 col-4">
+                    <div class="mb-3 col-6">
                         <label for="age" class="form-label">Age</label>
                         <input type="number" class="form-control" id="age" name="age"
                             value="{{ old('age') }}">
                         @error('age')
-                            <div class="p-3 text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-3">
-                                {{ $message }}
-                            </div>
+                            <div class="text-danger"> {{ $message }} </div>
                         @enderror
                     </div>
-                    <div class="mb-3 col-3">
+                    <div class="mb-3 col-6">
                         <label for="gender" class="form-label">Gender</label><br>
                         <input type="radio" class="btn-check" name="gender" id="male" value="1"
                             autocomplete="off" @if (old('gender') == 1) checked @endif>
@@ -64,16 +75,27 @@
                             autocomplete="off" @if (old('gender') == 3) checked @endif>
                         <label class="btn" for="other">Other</label>
                         @error('gender')
-                            <div class="p-3 text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-3">
-                                {{ $message }}
-                            </div>
+                            <div class="text-danger"> {{ $message }} </div>
                         @enderror
                     </div>
-                    <div class="mb-3 col-5">
+                    <div class="mb-3">
+                        <label for="city" class="form-label">Birth Place</label><br>
+                        <select class="form-select" id='city' style="width: 20%" name="city">
+                            <option selected disabled>Select Any City</option>
+                            @foreach ($citys as $city)
+                                <option value="{{ $city->id }}" @if (old('city') == $city->id) selected @endif>
+                                    {{ $city->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('city')
+                            <div class="text-danger"> {{ $message }} </div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
                         <label for="subject" class="form-label">Subject</label><br>
                         <div class="row">
                             @foreach ($subjects as $subject)
-                                <div class="form-check col-3">
+                                <div class="form-check">
                                     <input class="form-check-input" name="subject[]" type="checkbox"
                                         value="{{ $subject->id }}" id="{{ $subject->name }}">
                                     <label class="form-check-label"
@@ -82,23 +104,7 @@
                             @endforeach
                         </div>
                         @error('subject')
-                            <div class="p-3 text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-3">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label for="last_name" class="form-label">Birth Place</label><br>
-                        <select class="form-select" style="width: 20%" name="city">
-                            <option selected disabled>Select Any City</option>
-                            @foreach ($citys as $city)
-                                <option value="{{ $city->id }}">{{ $city->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('city')
-                            <div class="p-3 text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-3">
-                                {{ $message }}
-                            </div>
+                            <div class="text-danger"> {{ $message }}</div>
                         @enderror
                     </div>
                     <div class="col-1">

@@ -26,9 +26,7 @@
                         <input type="text" class="form-control w-50" id="city_name" name="city_name"
                             value="{{ $city->name }}">
                         @error('city_name')
-                            <div class="p-3 text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-3">
-                                {{ $message }}
-                            </div>
+                            <div class="text-danger"> {{ $message }}</div>
                         @enderror
                     </div>
                     <a href="{{ route('citys.index') }}"><button type="button"

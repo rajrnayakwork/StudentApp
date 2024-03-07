@@ -15,17 +15,15 @@
         <div class="d-flex justify-content-center">
             <div class="card w-50">
                 <div class="card-header bg-info-subtle text-info-emphasis">
-                    <h2>Login</h2>
+                    <h2>Admin Login</h2>
                 </div>
                 <div class="card-body row">
                     <div class="mb-3 col-6">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email"
-                            value="{{ old('email') }}">
-                        @error('email')
-                            <div class="p-3 text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-3">
-                                {{ $message }}
-                            </div>
+                        <label for="user_name" class="form-label">User Name</label>
+                        <input type="user_name" class="form-control" id="user_name" name="user_name"
+                            value="{{ old('user_name') }}">
+                        @error('user_name')
+                            <div class="text-danger"> {{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3 col-6">
@@ -33,9 +31,7 @@
                         <input type="password" class="form-control" id="password" name="password"
                             value="{{ old('password') }}">
                         @error('password')
-                            <div class="p-3 text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-3">
-                                {{ $message }}
-                            </div>
+                            <div class="text-danger"> {{ $message }}</div>
                         @enderror
                     </div>
                     <div>

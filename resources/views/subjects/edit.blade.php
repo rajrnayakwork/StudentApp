@@ -26,9 +26,7 @@
                         <input type="text" class="form-control w-50" id="subject_name" name="subject_name"
                             value="{{ $subject->name }}">
                         @error('subject_name')
-                            <div class="p-3 text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-3">
-                                {{ $message }}
-                            </div>
+                            <div class="text-danger"> {{ $message }}</div>
                         @enderror
                     </div>
                     <a href="{{ route('subjects.index') }}"><button type="button"
